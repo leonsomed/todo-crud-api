@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mongo:
+    container_name: crud-mongo-db
+    image: "mongo:3.4"
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb.conf:/etc/mongodb.conf
+      - ./db:/data/db
+    command:
+      - '-f'
+      - '/etc/mongodb.conf'
