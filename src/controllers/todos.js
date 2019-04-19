@@ -93,6 +93,25 @@ const endpoints = [
             res.json({ data: todo });
         },
     },
+    {
+      path: '/:_id',
+      method: 'delete',
+      middleware: [
+          validate(yup.object({
+              _id: yup.string().matches(/^[a-f0-9]{24}$/).required(),
+          })),
+      ],
+      async handler(req, res) {
+          const { _id } = req.locals.input;
+          const todo = await Todo.findOneAndDelete({ _id });
+
+          if (!todo) {
+              throw new NotFoundError(_id);
+          }
+
+          res.json({ data: todo });
+      },
+  },
 ];
 
 const router = express.Router();

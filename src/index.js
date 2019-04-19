@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
-
+import cors from 'cors';
 import config from './config';
-import todoController from './controllers/todo';
+import todosController from './controllers/todos';
 import errorMiddleware from './middleware/errors';
 import notImplementedMiddleware from './middleware/notImplemented';
 
@@ -11,8 +11,9 @@ import notImplementedMiddleware from './middleware/notImplemented';
 
     const app = express();
 
+    app.use(cors());
     app.use(express.json());
-    app.use('/todo', todoController);
+    app.use('/todos', todosController);
     app.use(errorMiddleware);
     app.use(notImplementedMiddleware);
 
